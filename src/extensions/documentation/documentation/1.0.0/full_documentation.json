@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-08-26T19:00:41.559Z"
+    "x-generation-date": "2026-08-26T20:03:53.932Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -5451,24 +5451,28 @@
           "Users-Permissions - Auth"
         ],
         "summary": "Local login",
-        "description": "Returns a jwt token and user info",
+        "description": "Returns a jwt and user info",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "identifier": {
+                  "email": {
                     "type": "string"
                   },
                   "password": {
                     "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
               },
               "example": {
-                "identifier": "foobar",
-                "password": "Test1234"
+                "email": "student@example.com",
+                "password": "student123"
               }
             }
           },
@@ -5480,17 +5484,19 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Users-Permissions-UserRegistration"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "properties": {
+                    "jwt": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Login successful"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/Users-Permissions-User"
+                    }
+                  }
                 }
               }
             }
@@ -5504,7 +5510,7 @@
           "Users-Permissions - Auth"
         ],
         "summary": "Register a user",
-        "description": "Returns a jwt token and user info",
+        "description": "Returns a jwt and user info",
         "requestBody": {
           "content": {
             "application/json": {
@@ -5519,13 +5525,23 @@
                   },
                   "password": {
                     "type": "string"
+                  },
+                  "user_role": {
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "username",
+                  "email",
+                  "password",
+                  "user_role"
+                ]
               },
               "example": {
-                "username": "foobar",
-                "email": "foo.bar@strapi.io",
-                "password": "Test1234"
+                "username": "Student",
+                "email": "student@example.com",
+                "password": "student123",
+                "user_role": "student"
               }
             }
           },
@@ -5537,17 +5553,19 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Users-Permissions-UserRegistration"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "properties": {
+                    "jwt": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Registration successful"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/Users-Permissions-User"
+                    }
+                  }
                 }
               }
             }

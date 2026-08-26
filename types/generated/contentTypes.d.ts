@@ -1356,7 +1356,6 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.DefaultTo<'student'>;
     username: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
