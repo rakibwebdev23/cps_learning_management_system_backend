@@ -1,4 +1,5 @@
 import { factories } from '@strapi/strapi';
+import calculateResultService from '../../../services/quiz/calculate-result';
 
 export default factories.createCoreController('api::quiz-result.quiz-result', ({ strapi }) => ({
   async submit(ctx) {
@@ -15,107 +16,50 @@ export default factories.createCoreController('api::quiz-result.quiz-result', ({
       return ctx.badRequest('Quiz and answers are required.');
     }
 
-    const quiz: any = await strapi.documents('api::quiz.quiz').findOne({
-      documentId: quizId,
-      populate: ['course'],
-    });
+    try {
+      const studentId = userRole === 'STUDENT' ? user.documentId : ctx.request.body.data.student || user.documentId;
+      const graded = await calculateResultService.gradeQuiz(
+        quizId,
+        answers,
+        studentId,
+        userRole,
+        strapi
+      );
 
-    if (!quiz) {
-      return ctx.notFound('Quiz not found.');
-    }
-
-    if (userRole === 'STUDENT') {
-      const enrollment = await strapi.documents('api::enrollment.enrollment').findFirst({
-        filters: {
-          student: { documentId: user.documentId },
-          course: { documentId: quiz.course?.documentId },
-          status: 'ACTIVE',
-        },
-      });
-
-      if (!enrollment) {
-        return ctx.forbidden('You must be actively enrolled in this course to take this quiz.');
-      }
-    }
-
-    const studentId = userRole === 'STUDENT' ? user.documentId : ctx.request.body.data.student || user.documentId;
-    const existingResults = await strapi.documents('api::quiz-result.quiz-result').findMany({
-      filters: {
-        student: { documentId: studentId },
-        quiz: { documentId: quizId },
-      },
-    });
-    const attemptNo = existingResults.length + 1;
-
-    const quizQuestions: any[] = await strapi.documents('api::question.question').findMany({
-      filters: { quiz: { documentId: quizId } },
-      populate: ['options'],
-    });
-
-    if (quizQuestions.length === 0) {
-      return ctx.badRequest('This quiz has no questions.');
-    }
-
-    let score = 0;
-    const answersToSave = [];
-
-    for (const q of quizQuestions) {
-      const userAns = answers.find((a: any) => a.question === q.documentId);
-      const selectedOptionId = userAns ? userAns.selected_option : null;
-
-      const optionsList = (q.options || []) as any[];
-      const correctOption = optionsList.find((o: any) => o.is_correct);
-
-      let isCorrect = false;
-      if (selectedOptionId && correctOption) {
-        isCorrect = selectedOptionId === correctOption.documentId;
-      }
-
-      if (isCorrect) {
-        score++;
-      }
-
-      answersToSave.push({
-        questionId: q.documentId,
-        selectedOptionId,
-        isCorrect,
-      });
-    }
-
-    const totalQuestions = quizQuestions.length;
-    const percentage = Number(((score / totalQuestions) * 100).toFixed(2));
-
-    const quizResult = await strapi.documents('api::quiz-result.quiz-result').create({
-      data: {
-        student: studentId,
-        quiz: quizId,
-        attempt_no: attemptNo,
-        score,
-        total_questions: totalQuestions,
-        percentage,
-        submittedAt: new Date().toISOString(),
-      },
-    });
-
-    const createdAnswers = [];
-    for (const ans of answersToSave) {
-      const createdAns = await strapi.documents('api::quiz-answer.quiz-answer').create({
+      const quizResult = await strapi.documents('api::quiz-result.quiz-result').create({
         data: {
-          quiz_result: quizResult.documentId,
-          question: ans.questionId,
-          selected_option: ans.selectedOptionId,
-          is_correct: ans.isCorrect,
+          student: graded.studentId,
+          quiz: graded.quizId,
+          attempt_no: graded.attemptNo,
+          score: graded.score,
+          total_questions: graded.totalQuestions,
+          percentage: graded.percentage,
+          submittedAt: new Date().toISOString(),
         },
       });
-      createdAnswers.push(createdAns);
-    }
 
-    return {
-      data: {
-        ...quizResult,
-        answers: createdAnswers,
-      },
-    };
+      const createdAnswers = [];
+      for (const ans of graded.answersToSave) {
+        const createdAns = await strapi.documents('api::quiz-answer.quiz-answer').create({
+          data: {
+            quiz_result: quizResult.documentId,
+            question: ans.questionId,
+            selected_option: ans.selectedOptionId,
+            is_correct: ans.isCorrect,
+          },
+        });
+        createdAnswers.push(createdAns);
+      }
+
+      return {
+        data: {
+          ...quizResult,
+          answers: createdAnswers,
+        },
+      };
+    } catch (err: any) {
+      return ctx.badRequest(err.message || 'An error occurred while grading the quiz.');
+    }
   },
 
   async create(ctx) {
