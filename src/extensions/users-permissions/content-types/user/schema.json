@@ -1,0 +1,60 @@
+{
+  "attributes": {
+    "user_role": {
+      "type": "enumeration",
+      "enum": [
+        "ADMIN",
+        "CONTENT_MANAGER",
+        "INSTRUCTOR",
+        "STUDENT"
+      ],
+      "default": "STUDENT",
+      "required": true
+    },
+    "avatar": {
+      "type": "string"
+    },
+    "blog_posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blog-post.blog-post",
+      "mappedBy": "author"
+    },
+    "instructor_courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course",
+      "mappedBy": "instructor"
+    },
+    "content_manager_courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course",
+      "mappedBy": "content_manager"
+    },
+    "enrollments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::enrollment.enrollment",
+      "mappedBy": "student"
+    },
+    "lesson_progresses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lesson-progress.lesson-progress",
+      "mappedBy": "student"
+    },
+    "quizzes_created": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quiz.quiz",
+      "mappedBy": "created_by"
+    },
+    "quiz_results": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quiz-result.quiz-result",
+      "mappedBy": "student"
+    }
+  }
+}

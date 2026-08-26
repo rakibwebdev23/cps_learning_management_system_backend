@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "options",
+  "info": {
+    "singularName": "option",
+    "pluralName": "options",
+    "displayName": "Option",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "option_text": {
+      "type": "text",
+      "required": true
+    },
+    "is_correct": {
+      "type": "boolean",
+      "default": false
+    },
+    "question": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::question.question",
+      "inversedBy": "options"
+    },
+    "selected_answers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quiz-answer.quiz-answer",
+      "mappedBy": "selected_option"
+    }
+  }
+}
