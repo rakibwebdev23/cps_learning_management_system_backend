@@ -470,9 +470,9 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
       'api::blog-post.blog-post'
     > &
       Schema.Attribute.Private;
-    post_status: Schema.Attribute.Enumeration<['DRAFT', 'PUBLISHED']> &
+    post_status: Schema.Attribute.Enumeration<['draft', 'published']> &
       Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'DRAFT'>;
+      Schema.Attribute.DefaultTo<'draft'>;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
@@ -555,9 +555,9 @@ export interface ApiEnrollmentEnrollment extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    status: Schema.Attribute.Enumeration<['ACTIVE', 'COMPLETED', 'DROPPED']> &
+    status: Schema.Attribute.Enumeration<['active', 'completed', 'dropped']> &
       Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'ACTIVE'>;
+      Schema.Attribute.DefaultTo<'active'>;
     student: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
@@ -1331,10 +1331,10 @@ export interface PluginUsersPermissionsUser
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     user_role: Schema.Attribute.Enumeration<
-      ['ADMIN', 'CONTENT_MANAGER', 'INSTRUCTOR', 'STUDENT']
+      ['admin', 'content_manager', 'instructor', 'student']
     > &
       Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'STUDENT'>;
+      Schema.Attribute.DefaultTo<'student'>;
   };
 }
 

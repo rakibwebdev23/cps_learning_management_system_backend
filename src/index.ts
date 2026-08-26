@@ -1,15 +1,15 @@
 import type { Core } from '@strapi/strapi';
 
 export default {
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+  register() {},
 
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
-    // 1. Auto-initialize required Roles if they do not exist
+    // 1. auto-initialize required roles if they do not exist
     const rolesToCheck = [
-      { name: 'ADMIN', type: 'admin', description: 'Administrator with full access' },
-      { name: 'CONTENT_MANAGER', type: 'content_manager', description: 'Content Manager role' },
-      { name: 'INSTRUCTOR', type: 'instructor', description: 'Instructor role' },
-      { name: 'STUDENT', type: 'student', description: 'Student role' },
+      { name: 'admin', type: 'admin', description: 'Administrator with full access' },
+      { name: 'content_manager', type: 'content_manager', description: 'Content Manager role' },
+      { name: 'instructor', type: 'instructor', description: 'Instructor role' },
+      { name: 'student', type: 'student', description: 'Student role' },
     ];
 
     for (const r of rolesToCheck) {
@@ -29,7 +29,7 @@ export default {
       }
     }
 
-    // 2. Register User Lifecycle Hook to sync user_role enum to users-permissions role relation
+    // 2. register user lifecycle hook
     strapi.db.lifecycles.subscribe({
       models: ['plugin::users-permissions.user'],
 

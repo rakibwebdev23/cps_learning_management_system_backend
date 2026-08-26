@@ -7,14 +7,14 @@ export default factories.createCoreController('api::enrollment.enrollment', ({ s
 
     const userRole = user.user_role;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       ctx.request.body.data = {
         ...ctx.request.body.data,
         student: user.documentId,
         enrolledAt: new Date().toISOString(),
-        status: 'ACTIVE',
+        status: 'active',
       };
-    } else if (userRole !== 'ADMIN') {
+    } else if (userRole !== 'admin') {
       return ctx.forbidden('Only students or admins can enroll in courses.');
     }
 
@@ -27,7 +27,7 @@ export default factories.createCoreController('api::enrollment.enrollment', ({ s
 
     const userRole = user.user_role;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       const { id } = ctx.params;
       const enrollment: any = await strapi.documents('api::enrollment.enrollment').findOne({
         documentId: id,
@@ -46,10 +46,10 @@ export default factories.createCoreController('api::enrollment.enrollment', ({ s
         status: ctx.request.body.data.status,
       };
 
-      if (ctx.request.body.data.status === 'COMPLETED' || ctx.request.body.data.status === 'DROPPED') {
+      if (ctx.request.body.data.status === 'completed' || ctx.request.body.data.status === 'dropped') {
         ctx.request.body.data.completedAt = new Date().toISOString();
       }
-    } else if (userRole !== 'ADMIN') {
+    } else if (userRole !== 'admin') {
       return ctx.forbidden('Only students or admins can update enrollments.');
     }
 
@@ -62,7 +62,7 @@ export default factories.createCoreController('api::enrollment.enrollment', ({ s
 
     const userRole = user.user_role;
 
-    if (userRole !== 'ADMIN') {
+    if (userRole !== 'admin') {
       return ctx.forbidden('Only admins can delete enrollments.');
     }
 
@@ -76,19 +76,19 @@ export default factories.createCoreController('api::enrollment.enrollment', ({ s
     const userRole = user.user_role;
     const queryFilters = (ctx.query.filters || {}) as Record<string, any>;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       ctx.query.filters = {
         ...queryFilters,
         student: { documentId: user.documentId },
       };
-    } else if (userRole === 'INSTRUCTOR') {
+    } else if (userRole === 'instructor') {
       ctx.query.filters = {
         ...queryFilters,
         course: {
           instructor: { documentId: user.documentId },
         },
       };
-    } else if (userRole !== 'ADMIN' && userRole !== 'CONTENT_MANAGER') {
+    } else if (userRole !== 'admin' && userRole !== 'content_manager') {
       return ctx.forbidden();
     }
 
@@ -111,15 +111,15 @@ export default factories.createCoreController('api::enrollment.enrollment', ({ s
 
     const userRole = user.user_role;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       if (enrollment.student?.documentId !== user.documentId) {
         return ctx.forbidden('You can only view your own enrollments.');
       }
-    } else if (userRole === 'INSTRUCTOR') {
+    } else if (userRole === 'instructor') {
       if (enrollment.course?.instructor?.documentId !== user.documentId) {
         return ctx.forbidden('You can only view enrollments of your own courses.');
       }
-    } else if (userRole !== 'ADMIN' && userRole !== 'CONTENT_MANAGER') {
+    } else if (userRole !== 'admin' && userRole !== 'content_manager') {
       return ctx.forbidden();
     }
 

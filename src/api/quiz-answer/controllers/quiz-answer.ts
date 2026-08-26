@@ -5,7 +5,7 @@ export default factories.createCoreController('api::quiz-answer.quiz-answer', ({
     const user = ctx.state.user;
     if (!user) return ctx.unauthorized('You must be logged in.');
 
-    if (user.user_role !== 'ADMIN') {
+    if (user.user_role !== 'admin') {
       return ctx.forbidden('Quiz answers can only be created automatically during quiz submission.');
     }
 
@@ -16,7 +16,7 @@ export default factories.createCoreController('api::quiz-answer.quiz-answer', ({
     const user = ctx.state.user;
     if (!user) return ctx.unauthorized('You must be logged in.');
 
-    if (user.user_role !== 'ADMIN') {
+    if (user.user_role !== 'admin') {
       return ctx.forbidden('Quiz answers cannot be modified.');
     }
 
@@ -27,7 +27,7 @@ export default factories.createCoreController('api::quiz-answer.quiz-answer', ({
     const user = ctx.state.user;
     if (!user) return ctx.unauthorized('You must be logged in.');
 
-    if (user.user_role !== 'ADMIN') {
+    if (user.user_role !== 'admin') {
       return ctx.forbidden('Quiz answers cannot be deleted.');
     }
 
@@ -41,14 +41,14 @@ export default factories.createCoreController('api::quiz-answer.quiz-answer', ({
     const userRole = user.user_role;
     const queryFilters = (ctx.query.filters || {}) as Record<string, any>;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       ctx.query.filters = {
         ...queryFilters,
         quiz_result: {
           student: { documentId: user.documentId },
         },
       };
-    } else if (userRole === 'INSTRUCTOR') {
+    } else if (userRole === 'instructor') {
       ctx.query.filters = {
         ...queryFilters,
         quiz_result: {
@@ -59,7 +59,7 @@ export default factories.createCoreController('api::quiz-answer.quiz-answer', ({
           },
         },
       };
-    } else if (userRole !== 'ADMIN' && userRole !== 'CONTENT_MANAGER') {
+    } else if (userRole !== 'admin' && userRole !== 'content_manager') {
       return ctx.forbidden();
     }
 
@@ -82,15 +82,15 @@ export default factories.createCoreController('api::quiz-answer.quiz-answer', ({
 
     const userRole = user.user_role;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       if (answer.quiz_result?.student?.documentId !== user.documentId) {
         return ctx.forbidden('You can only view your own quiz answers.');
       }
-    } else if (userRole === 'INSTRUCTOR') {
+    } else if (userRole === 'instructor') {
       if (answer.quiz_result?.quiz?.course?.instructor?.documentId !== user.documentId) {
         return ctx.forbidden('You can only view quiz answers for your own courses.');
       }
-    } else if (userRole !== 'ADMIN' && userRole !== 'CONTENT_MANAGER') {
+    } else if (userRole !== 'admin' && userRole !== 'content_manager') {
       return ctx.forbidden();
     }
 

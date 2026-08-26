@@ -9,12 +9,12 @@ export default factories.createCoreController('api::course.course', ({ strapi })
 
     const userRole = user.user_role;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       return ctx.forbidden('Students cannot create courses.');
     }
 
     // If instructor, automatically associate the course with their account
-    if (userRole === 'INSTRUCTOR') {
+    if (userRole === 'instructor') {
       ctx.request.body.data = {
         ...ctx.request.body.data,
         instructor: user.documentId,
@@ -32,11 +32,11 @@ export default factories.createCoreController('api::course.course', ({ strapi })
 
     const userRole = user.user_role;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       return ctx.forbidden('Students cannot update courses.');
     }
 
-    if (userRole === 'INSTRUCTOR') {
+    if (userRole === 'instructor') {
       const { id } = ctx.params; // documentId
       const course = await strapi.documents('api::course.course').findOne({
         documentId: id,
@@ -68,11 +68,11 @@ export default factories.createCoreController('api::course.course', ({ strapi })
 
     const userRole = user.user_role;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       return ctx.forbidden('Students cannot delete courses.');
     }
 
-    if (userRole === 'INSTRUCTOR') {
+    if (userRole === 'instructor') {
       const { id } = ctx.params;
       const course = await strapi.documents('api::course.course').findOne({
         documentId: id,

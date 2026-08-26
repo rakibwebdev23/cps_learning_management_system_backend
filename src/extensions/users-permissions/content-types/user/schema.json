@@ -3,12 +3,12 @@
     "user_role": {
       "type": "enumeration",
       "enum": [
-        "ADMIN",
-        "CONTENT_MANAGER",
-        "INSTRUCTOR",
-        "STUDENT"
+        "admin",
+        "content_manager",
+        "instructor",
+        "student"
       ],
-      "default": "STUDENT",
+      "default": "student",
       "required": true
     },
     "avatar": {

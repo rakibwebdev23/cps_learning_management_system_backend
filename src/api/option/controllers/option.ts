@@ -23,11 +23,11 @@ export default factories.createCoreController('api::option.option', ({ strapi })
     if (!user) return ctx.unauthorized('You must be logged in.');
 
     const userRole = user.user_role;
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       return ctx.forbidden('Students cannot create options.');
     }
 
-    if (userRole === 'INSTRUCTOR') {
+    if (userRole === 'instructor') {
       const questionId = getRelationId(ctx.request.body.data?.question);
       if (!questionId) {
         return ctx.badRequest('A question must be specified.');
@@ -63,11 +63,11 @@ export default factories.createCoreController('api::option.option', ({ strapi })
     if (!user) return ctx.unauthorized('You must be logged in.');
 
     const userRole = user.user_role;
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       return ctx.forbidden('Students cannot update options.');
     }
 
-    if (userRole === 'INSTRUCTOR') {
+    if (userRole === 'instructor') {
       const { id } = ctx.params;
       const option: any = await strapi.documents('api::option.option').findOne({
         documentId: id,
@@ -122,11 +122,11 @@ export default factories.createCoreController('api::option.option', ({ strapi })
     if (!user) return ctx.unauthorized('You must be logged in.');
 
     const userRole = user.user_role;
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       return ctx.forbidden('Students cannot delete options.');
     }
 
-    if (userRole === 'INSTRUCTOR') {
+    if (userRole === 'instructor') {
       const { id } = ctx.params;
       const option: any = await strapi.documents('api::option.option').findOne({
         documentId: id,
@@ -164,7 +164,7 @@ export default factories.createCoreController('api::option.option', ({ strapi })
     const userRole = user.user_role;
     const queryFilters = (ctx.query.filters || {}) as Record<string, any>;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       ctx.query.filters = {
         ...queryFilters,
         question: {
@@ -177,7 +177,7 @@ export default factories.createCoreController('api::option.option', ({ strapi })
           },
         },
       };
-    } else if (userRole === 'INSTRUCTOR') {
+    } else if (userRole === 'instructor') {
       ctx.query.filters = {
         ...queryFilters,
         question: {
@@ -217,7 +217,7 @@ export default factories.createCoreController('api::option.option', ({ strapi })
 
     const userRole = user.user_role;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       const courseId = option.question?.quiz?.course?.documentId;
       if (!courseId) {
         return ctx.forbidden('This option is not associated with any course.');
@@ -232,7 +232,7 @@ export default factories.createCoreController('api::option.option', ({ strapi })
       if (!enrollment) {
         return ctx.forbidden('You must be enrolled in this course to view this option.');
       }
-    } else if (userRole === 'INSTRUCTOR') {
+    } else if (userRole === 'instructor') {
       const courseId = option.question?.quiz?.course?.documentId;
       if (!courseId) {
         return ctx.forbidden('This option is not associated with any course.');

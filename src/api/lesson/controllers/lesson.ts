@@ -23,11 +23,11 @@ export default factories.createCoreController('api::lesson.lesson', ({ strapi })
     if (!user) return ctx.unauthorized('You must be logged in.');
 
     const userRole = user.user_role;
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       return ctx.forbidden('Students cannot create lessons.');
     }
 
-    if (userRole === 'INSTRUCTOR') {
+    if (userRole === 'instructor') {
       const courseId = getRelationId(ctx.request.body.data?.course);
       if (!courseId) {
         return ctx.badRequest('A course must be specified.');
@@ -55,11 +55,11 @@ export default factories.createCoreController('api::lesson.lesson', ({ strapi })
     if (!user) return ctx.unauthorized('You must be logged in.');
 
     const userRole = user.user_role;
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       return ctx.forbidden('Students cannot update lessons.');
     }
 
-    if (userRole === 'INSTRUCTOR') {
+    if (userRole === 'instructor') {
       const { id } = ctx.params;
       const lesson: any = await strapi.documents('api::lesson.lesson').findOne({
         documentId: id,
@@ -99,11 +99,11 @@ export default factories.createCoreController('api::lesson.lesson', ({ strapi })
     if (!user) return ctx.unauthorized('You must be logged in.');
 
     const userRole = user.user_role;
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       return ctx.forbidden('Students cannot delete lessons.');
     }
 
-    if (userRole === 'INSTRUCTOR') {
+    if (userRole === 'instructor') {
       const { id } = ctx.params;
       const lesson: any = await strapi.documents('api::lesson.lesson').findOne({
         documentId: id,
@@ -133,7 +133,7 @@ export default factories.createCoreController('api::lesson.lesson', ({ strapi })
     const queryFilters = (ctx.query.filters || {}) as Record<string, any>;
 
     // Students can only see lessons in courses they are enrolled in
-    if (user.user_role === 'STUDENT') {
+    if (user.user_role === 'student') {
       ctx.query.filters = {
         ...queryFilters,
         course: {
@@ -145,7 +145,7 @@ export default factories.createCoreController('api::lesson.lesson', ({ strapi })
     }
 
     // Instructors can only see lessons of their own courses
-    if (user.user_role === 'INSTRUCTOR') {
+    if (user.user_role === 'instructor') {
       ctx.query.filters = {
         ...queryFilters,
         course: {
@@ -171,7 +171,7 @@ export default factories.createCoreController('api::lesson.lesson', ({ strapi })
       return ctx.notFound('Lesson not found.');
     }
 
-    if (user.user_role === 'STUDENT') {
+    if (user.user_role === 'student') {
       const courseId = lesson.course?.documentId;
       if (!courseId) {
         return ctx.forbidden('This lesson is not associated with any course.');
@@ -189,7 +189,7 @@ export default factories.createCoreController('api::lesson.lesson', ({ strapi })
       }
     }
 
-    if (user.user_role === 'INSTRUCTOR') {
+    if (user.user_role === 'instructor') {
       const courseId = lesson.course?.documentId;
       if (!courseId) {
         return ctx.forbidden('This lesson is not associated with any course.');

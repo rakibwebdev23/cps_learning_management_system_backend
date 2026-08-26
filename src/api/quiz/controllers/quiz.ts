@@ -23,11 +23,11 @@ export default factories.createCoreController('api::quiz.quiz', ({ strapi }) => 
     if (!user) return ctx.unauthorized('You must be logged in.');
 
     const userRole = user.user_role;
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       return ctx.forbidden('Students cannot create quizzes.');
     }
 
-    if (userRole === 'INSTRUCTOR') {
+    if (userRole === 'instructor') {
       const courseId = getRelationId(ctx.request.body.data?.course);
       if (!courseId) {
         return ctx.badRequest('A course must be specified.');
@@ -60,11 +60,11 @@ export default factories.createCoreController('api::quiz.quiz', ({ strapi }) => 
     if (!user) return ctx.unauthorized('You must be logged in.');
 
     const userRole = user.user_role;
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       return ctx.forbidden('Students cannot update quizzes.');
     }
 
-    if (userRole === 'INSTRUCTOR') {
+    if (userRole === 'instructor') {
       const { id } = ctx.params;
       const quiz: any = await strapi.documents('api::quiz.quiz').findOne({
         documentId: id,
@@ -103,11 +103,11 @@ export default factories.createCoreController('api::quiz.quiz', ({ strapi }) => 
     if (!user) return ctx.unauthorized('You must be logged in.');
 
     const userRole = user.user_role;
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       return ctx.forbidden('Students cannot delete quizzes.');
     }
 
-    if (userRole === 'INSTRUCTOR') {
+    if (userRole === 'instructor') {
       const { id } = ctx.params;
       const quiz: any = await strapi.documents('api::quiz.quiz').findOne({
         documentId: id,
@@ -137,7 +137,7 @@ export default factories.createCoreController('api::quiz.quiz', ({ strapi }) => 
     const userRole = user.user_role;
     const queryFilters = (ctx.query.filters || {}) as Record<string, any>;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       ctx.query.filters = {
         ...queryFilters,
         course: {
@@ -146,7 +146,7 @@ export default factories.createCoreController('api::quiz.quiz', ({ strapi }) => 
           },
         },
       };
-    } else if (userRole === 'INSTRUCTOR') {
+    } else if (userRole === 'instructor') {
       ctx.query.filters = {
         ...queryFilters,
         course: {
@@ -174,7 +174,7 @@ export default factories.createCoreController('api::quiz.quiz', ({ strapi }) => 
 
     const userRole = user.user_role;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       const courseId = quiz.course?.documentId;
       if (!courseId) {
         return ctx.forbidden('This quiz is not associated with a course.');
@@ -189,7 +189,7 @@ export default factories.createCoreController('api::quiz.quiz', ({ strapi }) => 
       if (!enrollment) {
         return ctx.forbidden('You must be enrolled in this course to view this quiz.');
       }
-    } else if (userRole === 'INSTRUCTOR') {
+    } else if (userRole === 'instructor') {
       const courseId = quiz.course?.documentId;
       if (!courseId) {
         return ctx.forbidden('This quiz is not associated with a course.');

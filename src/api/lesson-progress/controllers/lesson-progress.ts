@@ -24,7 +24,7 @@ export default factories.createCoreController('api::lesson-progress.lesson-progr
 
     const userRole = user.user_role;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       const lessonId = getRelationId(ctx.request.body.data?.lesson);
       const courseId = getRelationId(ctx.request.body.data?.course);
 
@@ -36,7 +36,7 @@ export default factories.createCoreController('api::lesson-progress.lesson-progr
         filters: {
           student: { documentId: user.documentId },
           course: { documentId: courseId },
-          status: 'ACTIVE',
+          status: 'active',
         },
       });
 
@@ -52,7 +52,7 @@ export default factories.createCoreController('api::lesson-progress.lesson-progr
       if (ctx.request.body.data.completed) {
         ctx.request.body.data.completedAt = new Date().toISOString();
       }
-    } else if (userRole !== 'ADMIN') {
+    } else if (userRole !== 'admin') {
       return ctx.forbidden('Only students or admins can track progress.');
     }
 
@@ -65,7 +65,7 @@ export default factories.createCoreController('api::lesson-progress.lesson-progr
 
     const userRole = user.user_role;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       const { id } = ctx.params;
       const progress: any = await strapi.documents('api::lesson-progress.lesson-progress').findOne({
         documentId: id,
@@ -89,7 +89,7 @@ export default factories.createCoreController('api::lesson-progress.lesson-progr
       } else {
         ctx.request.body.data.completedAt = null;
       }
-    } else if (userRole !== 'ADMIN') {
+    } else if (userRole !== 'admin') {
       return ctx.forbidden('Only students or admins can update progress.');
     }
 
@@ -100,7 +100,7 @@ export default factories.createCoreController('api::lesson-progress.lesson-progr
     const user = ctx.state.user;
     if (!user) return ctx.unauthorized('You must be logged in.');
 
-    if (user.user_role !== 'ADMIN') {
+    if (user.user_role !== 'admin') {
       return ctx.forbidden('Only admins can delete progress records.');
     }
 
@@ -114,19 +114,19 @@ export default factories.createCoreController('api::lesson-progress.lesson-progr
     const userRole = user.user_role;
     const queryFilters = (ctx.query.filters || {}) as Record<string, any>;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       ctx.query.filters = {
         ...queryFilters,
         student: { documentId: user.documentId },
       };
-    } else if (userRole === 'INSTRUCTOR') {
+    } else if (userRole === 'instructor') {
       ctx.query.filters = {
         ...queryFilters,
         course: {
           instructor: { documentId: user.documentId },
         },
       };
-    } else if (userRole !== 'ADMIN' && userRole !== 'CONTENT_MANAGER') {
+    } else if (userRole !== 'admin' && userRole !== 'content_manager') {
       return ctx.forbidden();
     }
 
@@ -149,15 +149,15 @@ export default factories.createCoreController('api::lesson-progress.lesson-progr
 
     const userRole = user.user_role;
 
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       if (progress.student?.documentId !== user.documentId) {
         return ctx.forbidden('You can only view your own progress.');
       }
-    } else if (userRole === 'INSTRUCTOR') {
+    } else if (userRole === 'instructor') {
       if (progress.course?.instructor?.documentId !== user.documentId) {
         return ctx.forbidden('You can only view progress of students in your own courses.');
       }
-    } else if (userRole !== 'ADMIN' && userRole !== 'CONTENT_MANAGER') {
+    } else if (userRole !== 'admin' && userRole !== 'content_manager') {
       return ctx.forbidden();
     }
 

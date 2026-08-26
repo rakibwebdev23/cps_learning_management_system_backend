@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-08-26T07:27:46.450Z"
+    "x-generation-date": "2026-08-26T07:56:47.546Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -6676,8 +6676,8 @@
               "post_status": {
                 "type": "string",
                 "enum": [
-                  "DRAFT",
-                  "PUBLISHED"
+                  "draft",
+                  "published"
                 ]
               },
               "author": {
@@ -6780,8 +6780,8 @@
           "post_status": {
             "type": "string",
             "enum": [
-              "DRAFT",
-              "PUBLISHED"
+              "draft",
+              "published"
             ]
           },
           "author": {
@@ -6803,10 +6803,10 @@
               "user_role": {
                 "type": "string",
                 "enum": [
-                  "ADMIN",
-                  "CONTENT_MANAGER",
-                  "INSTRUCTOR",
-                  "STUDENT"
+                  "admin",
+                  "content_manager",
+                  "instructor",
+                  "student"
                 ]
               },
               "avatar": {
@@ -6842,8 +6842,8 @@
                     "post_status": {
                       "type": "string",
                       "enum": [
-                        "DRAFT",
-                        "PUBLISHED"
+                        "draft",
+                        "published"
                       ]
                     },
                     "author": {
@@ -7951,9 +7951,9 @@
                           "status": {
                             "type": "string",
                             "enum": [
-                              "ACTIVE",
-                              "COMPLETED",
-                              "DROPPED"
+                              "active",
+                              "completed",
+                              "dropped"
                             ]
                           },
                           "enrolledAt": {
@@ -9344,10 +9344,10 @@
               "user_role": {
                 "type": "string",
                 "enum": [
-                  "ADMIN",
-                  "CONTENT_MANAGER",
-                  "INSTRUCTOR",
-                  "STUDENT"
+                  "admin",
+                  "content_manager",
+                  "instructor",
+                  "student"
                 ]
               },
               "avatar": {
@@ -9383,8 +9383,8 @@
                     "post_status": {
                       "type": "string",
                       "enum": [
-                        "DRAFT",
-                        "PUBLISHED"
+                        "draft",
+                        "published"
                       ]
                     },
                     "author": {
@@ -10492,9 +10492,9 @@
                           "status": {
                             "type": "string",
                             "enum": [
-                              "ACTIVE",
-                              "COMPLETED",
-                              "DROPPED"
+                              "active",
+                              "completed",
+                              "dropped"
                             ]
                           },
                           "enrolledAt": {
@@ -11801,9 +11801,9 @@
               "status": {
                 "type": "string",
                 "enum": [
-                  "ACTIVE",
-                  "COMPLETED",
-                  "DROPPED"
+                  "active",
+                  "completed",
+                  "dropped"
                 ]
               },
               "enrolledAt": {
@@ -11915,9 +11915,9 @@
           "status": {
             "type": "string",
             "enum": [
-              "ACTIVE",
-              "COMPLETED",
-              "DROPPED"
+              "active",
+              "completed",
+              "dropped"
             ]
           },
           "enrolledAt": {
@@ -11947,10 +11947,10 @@
               "user_role": {
                 "type": "string",
                 "enum": [
-                  "ADMIN",
-                  "CONTENT_MANAGER",
-                  "INSTRUCTOR",
-                  "STUDENT"
+                  "admin",
+                  "content_manager",
+                  "instructor",
+                  "student"
                 ]
               },
               "avatar": {
@@ -11986,8 +11986,8 @@
                     "post_status": {
                       "type": "string",
                       "enum": [
-                        "DRAFT",
-                        "PUBLISHED"
+                        "draft",
+                        "published"
                       ]
                     },
                     "author": {
@@ -13095,9 +13095,9 @@
                           "status": {
                             "type": "string",
                             "enum": [
-                              "ACTIVE",
-                              "COMPLETED",
-                              "DROPPED"
+                              "active",
+                              "completed",
+                              "dropped"
                             ]
                           },
                           "enrolledAt": {
@@ -14486,10 +14486,10 @@
                   "user_role": {
                     "type": "string",
                     "enum": [
-                      "ADMIN",
-                      "CONTENT_MANAGER",
-                      "INSTRUCTOR",
-                      "STUDENT"
+                      "admin",
+                      "content_manager",
+                      "instructor",
+                      "student"
                     ]
                   },
                   "avatar": {
@@ -14525,8 +14525,8 @@
                         "post_status": {
                           "type": "string",
                           "enum": [
-                            "DRAFT",
-                            "PUBLISHED"
+                            "draft",
+                            "published"
                           ]
                         },
                         "author": {
@@ -15336,9 +15336,9 @@
                         "status": {
                           "type": "string",
                           "enum": [
-                            "ACTIVE",
-                            "COMPLETED",
-                            "DROPPED"
+                            "active",
+                            "completed",
+                            "dropped"
                           ]
                         },
                         "enrolledAt": {
@@ -16968,10 +16968,10 @@
               "user_role": {
                 "type": "string",
                 "enum": [
-                  "ADMIN",
-                  "CONTENT_MANAGER",
-                  "INSTRUCTOR",
-                  "STUDENT"
+                  "admin",
+                  "content_manager",
+                  "instructor",
+                  "student"
                 ]
               },
               "avatar": {
@@ -17007,8 +17007,8 @@
                     "post_status": {
                       "type": "string",
                       "enum": [
-                        "DRAFT",
-                        "PUBLISHED"
+                        "draft",
+                        "published"
                       ]
                     },
                     "author": {
@@ -18116,9 +18116,9 @@
                           "status": {
                             "type": "string",
                             "enum": [
-                              "ACTIVE",
-                              "COMPLETED",
-                              "DROPPED"
+                              "active",
+                              "completed",
+                              "dropped"
                             ]
                           },
                           "enrolledAt": {
@@ -19555,10 +19555,10 @@
                           "user_role": {
                             "type": "string",
                             "enum": [
-                              "ADMIN",
-                              "CONTENT_MANAGER",
-                              "INSTRUCTOR",
-                              "STUDENT"
+                              "admin",
+                              "content_manager",
+                              "instructor",
+                              "student"
                             ]
                           },
                           "avatar": {
@@ -19594,8 +19594,8 @@
                                 "post_status": {
                                   "type": "string",
                                   "enum": [
-                                    "DRAFT",
-                                    "PUBLISHED"
+                                    "draft",
+                                    "published"
                                   ]
                                 },
                                 "author": {
@@ -20405,9 +20405,9 @@
                                 "status": {
                                   "type": "string",
                                   "enum": [
-                                    "ACTIVE",
-                                    "COMPLETED",
-                                    "DROPPED"
+                                    "active",
+                                    "completed",
+                                    "dropped"
                                   ]
                                 },
                                 "enrolledAt": {
@@ -22052,10 +22052,10 @@
                       "user_role": {
                         "type": "string",
                         "enum": [
-                          "ADMIN",
-                          "CONTENT_MANAGER",
-                          "INSTRUCTOR",
-                          "STUDENT"
+                          "admin",
+                          "content_manager",
+                          "instructor",
+                          "student"
                         ]
                       },
                       "avatar": {
@@ -22091,8 +22091,8 @@
                             "post_status": {
                               "type": "string",
                               "enum": [
-                                "DRAFT",
-                                "PUBLISHED"
+                                "draft",
+                                "published"
                               ]
                             },
                             "author": {
@@ -22902,9 +22902,9 @@
                             "status": {
                               "type": "string",
                               "enum": [
-                                "ACTIVE",
-                                "COMPLETED",
-                                "DROPPED"
+                                "active",
+                                "completed",
+                                "dropped"
                               ]
                             },
                             "enrolledAt": {
@@ -24579,10 +24579,10 @@
                   "user_role": {
                     "type": "string",
                     "enum": [
-                      "ADMIN",
-                      "CONTENT_MANAGER",
-                      "INSTRUCTOR",
-                      "STUDENT"
+                      "admin",
+                      "content_manager",
+                      "instructor",
+                      "student"
                     ]
                   },
                   "avatar": {
@@ -24618,8 +24618,8 @@
                         "post_status": {
                           "type": "string",
                           "enum": [
-                            "DRAFT",
-                            "PUBLISHED"
+                            "draft",
+                            "published"
                           ]
                         },
                         "author": {
@@ -25429,9 +25429,9 @@
                         "status": {
                           "type": "string",
                           "enum": [
-                            "ACTIVE",
-                            "COMPLETED",
-                            "DROPPED"
+                            "active",
+                            "completed",
+                            "dropped"
                           ]
                         },
                         "enrolledAt": {
@@ -27131,10 +27131,10 @@
                   "user_role": {
                     "type": "string",
                     "enum": [
-                      "ADMIN",
-                      "CONTENT_MANAGER",
-                      "INSTRUCTOR",
-                      "STUDENT"
+                      "admin",
+                      "content_manager",
+                      "instructor",
+                      "student"
                     ]
                   },
                   "avatar": {
@@ -27170,8 +27170,8 @@
                         "post_status": {
                           "type": "string",
                           "enum": [
-                            "DRAFT",
-                            "PUBLISHED"
+                            "draft",
+                            "published"
                           ]
                         },
                         "author": {
@@ -28279,9 +28279,9 @@
                               "status": {
                                 "type": "string",
                                 "enum": [
-                                  "ACTIVE",
-                                  "COMPLETED",
-                                  "DROPPED"
+                                  "active",
+                                  "completed",
+                                  "dropped"
                                 ]
                               },
                               "enrolledAt": {
@@ -29657,10 +29657,10 @@
               "user_role": {
                 "type": "string",
                 "enum": [
-                  "ADMIN",
-                  "CONTENT_MANAGER",
-                  "INSTRUCTOR",
-                  "STUDENT"
+                  "admin",
+                  "content_manager",
+                  "instructor",
+                  "student"
                 ]
               },
               "avatar": {
@@ -29696,8 +29696,8 @@
                     "post_status": {
                       "type": "string",
                       "enum": [
-                        "DRAFT",
-                        "PUBLISHED"
+                        "draft",
+                        "published"
                       ]
                     },
                     "author": {
@@ -30805,9 +30805,9 @@
                           "status": {
                             "type": "string",
                             "enum": [
-                              "ACTIVE",
-                              "COMPLETED",
-                              "DROPPED"
+                              "active",
+                              "completed",
+                              "dropped"
                             ]
                           },
                           "enrolledAt": {

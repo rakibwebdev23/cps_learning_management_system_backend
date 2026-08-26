@@ -16,7 +16,7 @@ export default {
         student: studentId,
         course: courseId,
         enrolledAt: new Date().toISOString(),
-        status: 'ACTIVE',
+        status: 'active',
       },
     });
   },

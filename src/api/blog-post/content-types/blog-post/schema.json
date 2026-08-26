@@ -26,10 +26,10 @@
     "post_status": {
       "type": "enumeration",
       "enum": [
-        "DRAFT",
-        "PUBLISHED"
+        "draft",
+        "published"
       ],
-      "default": "DRAFT",
+      "default": "draft",
       "required": true
     },
     "author": {

@@ -11,12 +11,12 @@ export default {
     }
 
     // 2. If student, verify enrollment in the course
-    if (userRole === 'STUDENT') {
+    if (userRole === 'student') {
       const enrollment = await strapi.documents('api::enrollment.enrollment').findFirst({
         filters: {
           student: { documentId: studentId },
           course: { documentId: quiz.course?.documentId },
-          status: 'ACTIVE',
+          status: 'active',
         },
       });
 

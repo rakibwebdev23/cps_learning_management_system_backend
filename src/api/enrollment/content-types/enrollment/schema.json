@@ -15,11 +15,11 @@
     "status": {
       "type": "enumeration",
       "enum": [
-        "ACTIVE",
-        "COMPLETED",
-        "DROPPED"
+        "active",
+        "completed",
+        "dropped"
       ],
-      "default": "ACTIVE",
+      "default": "active",
       "required": true
     },
     "enrolledAt": {
