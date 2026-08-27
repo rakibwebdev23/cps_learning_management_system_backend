@@ -459,6 +459,9 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    blog_status: Schema.Attribute.Enumeration<['draft', 'published']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'draft'>;
     body: Schema.Attribute.RichText & Schema.Attribute.Required;
     cover_image_url: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
@@ -470,9 +473,6 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
       'api::blog-post.blog-post'
     > &
       Schema.Attribute.Private;
-    post_status: Schema.Attribute.Enumeration<['draft', 'published']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'draft'>;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;

@@ -23,7 +23,7 @@
     "cover_image_url": {
       "type": "string"
     },
-    "post_status": {
+    "blog_status": {
       "type": "enumeration",
       "enum": [
         "draft",

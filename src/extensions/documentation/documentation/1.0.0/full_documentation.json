@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-08-26T20:03:53.932Z"
+    "x-generation-date": "2026-08-27T14:08:33.284Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -5491,7 +5491,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Login successful"
+                      "example": "Login successfully"
                     },
                     "user": {
                       "$ref": "#/components/schemas/Users-Permissions-User"
@@ -6678,7 +6678,7 @@
             "required": [
               "title",
               "body",
-              "post_status"
+              "blog_status"
             ],
             "type": "object",
             "properties": {
@@ -6691,7 +6691,7 @@
               "cover_image_url": {
                 "type": "string"
               },
-              "post_status": {
+              "blog_status": {
                 "type": "string",
                 "enum": [
                   "draft",
@@ -6770,7 +6770,7 @@
         "required": [
           "title",
           "body",
-          "post_status"
+          "blog_status"
         ],
         "properties": {
           "id": {
@@ -6795,7 +6795,7 @@
           "cover_image_url": {
             "type": "string"
           },
-          "post_status": {
+          "blog_status": {
             "type": "string",
             "enum": [
               "draft",
@@ -7764,7 +7764,7 @@
                     "cover_image_url": {
                       "type": "string"
                     },
-                    "post_status": {
+                    "blog_status": {
                       "type": "string",
                       "enum": [
                         "draft",
@@ -10561,7 +10561,7 @@
                     "cover_image_url": {
                       "type": "string"
                     },
-                    "post_status": {
+                    "blog_status": {
                       "type": "string",
                       "enum": [
                         "draft",
@@ -13420,7 +13420,7 @@
                     "cover_image_url": {
                       "type": "string"
                     },
-                    "post_status": {
+                    "blog_status": {
                       "type": "string",
                       "enum": [
                         "draft",
@@ -16215,7 +16215,7 @@
                         "cover_image_url": {
                           "type": "string"
                         },
-                        "post_status": {
+                        "blog_status": {
                           "type": "string",
                           "enum": [
                             "draft",
@@ -18953,7 +18953,7 @@
                     "cover_image_url": {
                       "type": "string"
                     },
-                    "post_status": {
+                    "blog_status": {
                       "type": "string",
                       "enum": [
                         "draft",
@@ -21796,7 +21796,7 @@
                                 "cover_image_url": {
                                   "type": "string"
                                 },
-                                "post_status": {
+                                "blog_status": {
                                   "type": "string",
                                   "enum": [
                                     "draft",
@@ -24549,7 +24549,7 @@
                             "cover_image_url": {
                               "type": "string"
                             },
-                            "post_status": {
+                            "blog_status": {
                               "type": "string",
                               "enum": [
                                 "draft",
@@ -27332,7 +27332,7 @@
                         "cover_image_url": {
                           "type": "string"
                         },
-                        "post_status": {
+                        "blog_status": {
                           "type": "string",
                           "enum": [
                             "draft",
@@ -30140,7 +30140,7 @@
                         "cover_image_url": {
                           "type": "string"
                         },
-                        "post_status": {
+                        "blog_status": {
                           "type": "string",
                           "enum": [
                             "draft",
@@ -32922,7 +32922,7 @@
                     "cover_image_url": {
                       "type": "string"
                     },
-                    "post_status": {
+                    "blog_status": {
                       "type": "string",
                       "enum": [
                         "draft",
