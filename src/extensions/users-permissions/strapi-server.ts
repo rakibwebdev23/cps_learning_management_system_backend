@@ -1,7 +1,7 @@
 export = (plugin: any) => {
 
 
-  // Determine if it's a factory or an object
+  // check if factory
   const isFactory = typeof plugin.controllers.auth === 'function';
   const originalAuthController = isFactory ? plugin.controllers.auth : () => plugin.controllers.auth;
 
@@ -20,7 +20,7 @@ export = (plugin: any) => {
 
       await originalCallback(ctx);
       
-      // Add custom success message
+      // add success message
       if (ctx.body && ctx.body.user) {
         ctx.body.message = "Login successfully";
       }
@@ -31,14 +31,14 @@ export = (plugin: any) => {
       
       const originalUsername = ctx.request.body.username;
       
-      // Temporarily set username to a unique value to bypass Strapi's built-in uniqueness check
+      // bypass username uniqueness
       if (originalUsername) {
         ctx.request.body.username = `${originalUsername}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
       }
 
       await originalRegister(ctx);
 
-      // Restore the original username in the database and response body
+      // restore username
       if (ctx.body && ctx.body.user && ctx.body.user.id && originalUsername) {
         // @ts-ignore
         await strapi.db.query('plugin::users-permissions.user').update({
@@ -49,7 +49,7 @@ export = (plugin: any) => {
         ctx.body.user.username = originalUsername;
       }
       
-      // Add custom success message
+      // add success message
       if (ctx.body && ctx.body.user) {
         ctx.body.message = "Registration successful";
       }

@@ -19,7 +19,7 @@
     "description": {
       "type": "text"
     },
-    "course": {
+    "course_id": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::course.course",

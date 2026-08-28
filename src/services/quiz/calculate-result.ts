@@ -1,6 +1,6 @@
 export default {
   async gradeQuiz(quizId: string, answers: any[], studentId: string, userRole: string, strapi: any) {
-    // 1. Fetch the quiz and associated course
+    // fetch quiz and course
     const quiz: any = await strapi.documents('api::quiz.quiz').findOne({
       documentId: quizId,
       populate: ['course'],
@@ -10,7 +10,7 @@ export default {
       throw new Error('Quiz not found.');
     }
 
-    // 2. If student, verify enrollment in the course
+    // verify student enrollment
     if (userRole === 'student') {
       const enrollment = await strapi.documents('api::enrollment.enrollment').findFirst({
         filters: {
@@ -25,7 +25,7 @@ export default {
       }
     }
 
-    // 3. Determine attempt number
+    // determine attempt
     const existingResults = await strapi.documents('api::quiz-result.quiz-result').findMany({
       filters: {
         student: { documentId: studentId },
@@ -34,7 +34,7 @@ export default {
     });
     const attemptNo = existingResults.length + 1;
 
-    // 4. Fetch all questions and their correct options
+    // fetch questions
     const quizQuestions: any[] = await strapi.documents('api::question.question').findMany({
       filters: { quiz: { documentId: quizId } },
       populate: ['options'],
@@ -44,7 +44,7 @@ export default {
       throw new Error('This quiz has no questions.');
     }
 
-    // 5. Grade the quiz
+    // grade quiz
     let score = 0;
     const answersToSave = [];
 

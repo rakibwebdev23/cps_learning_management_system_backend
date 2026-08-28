@@ -506,7 +506,7 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
       'api::enrollment.enrollment'
     >;
     instructor: Schema.Attribute.Relation<
-      'manyToOne',
+      'oneToOne',
       'plugin::users-permissions.user'
     >;
     lesson_progresses: Schema.Attribute.Relation<
@@ -520,6 +520,7 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
       'api::course.course'
     > &
       Schema.Attribute.Private;
+    price: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
     quizzes: Schema.Attribute.Relation<'oneToMany', 'api::quiz.quiz'>;
     thumbnail_url: Schema.Attribute.String;
@@ -807,7 +808,7 @@ export interface ApiQuizQuiz extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    course: Schema.Attribute.Relation<'manyToOne', 'api::course.course'>;
+    course_id: Schema.Attribute.Relation<'manyToOne', 'api::course.course'>;
     created_by: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
@@ -1288,7 +1289,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     avatar: Schema.Attribute.String;
@@ -1299,10 +1299,6 @@ export interface PluginUsersPermissionsUser
     >;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    content_manager_courses: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::course.course'
-    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1314,10 +1310,6 @@ export interface PluginUsersPermissionsUser
     enrollments: Schema.Attribute.Relation<
       'oneToMany',
       'api::enrollment.enrollment'
-    >;
-    instructor_courses: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::course.course'
     >;
     lesson_progresses: Schema.Attribute.Relation<
       'oneToMany',

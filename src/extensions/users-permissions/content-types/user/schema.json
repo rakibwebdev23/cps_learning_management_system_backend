@@ -1,4 +1,17 @@
 {
+  "kind": "collectionType",
+  "collectionName": "up_users",
+  "info": {
+    "name": "user",
+    "description": "",
+    "singularName": "user",
+    "pluralName": "users",
+    "displayName": "User"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
   "attributes": {
     "username": {
       "type": "string",
@@ -54,14 +67,14 @@
     },
     "user_role": {
       "type": "enumeration",
+      "required": true,
+      "default": "student",
       "enum": [
         "admin",
         "content_manager",
         "instructor",
         "student"
-      ],
-      "default": "student",
-      "required": true
+      ]
     },
     "avatar": {
       "type": "string"
@@ -71,18 +84,6 @@
       "relation": "oneToMany",
       "target": "api::blog-post.blog-post",
       "mappedBy": "author"
-    },
-    "instructor_courses": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::course.course",
-      "mappedBy": "instructor"
-    },
-    "content_manager_courses": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::course.course",
-      "mappedBy": "content_manager"
     },
     "enrollments": {
       "type": "relation",

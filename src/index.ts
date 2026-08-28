@@ -122,6 +122,145 @@ export default {
               }
             }
           }
+        },
+        components: {
+          schemas: {
+            CourseRequest: {
+              type: "object",
+              properties: {
+                data: {
+                  type: "object",
+                  properties: {
+                    title: { type: "string" },
+                    description: { type: "string" },
+                    thumbnail_url: { type: "string" },
+                    price: { type: "number", format: "float" }
+                  }
+                }
+              }
+            },
+            LessonRequest: {
+              type: "object",
+              properties: {
+                data: {
+                  type: "object",
+                  properties: {
+                    title: { type: "string" },
+                    content: { type: "string" },
+                    video_url: { type: "string" },
+                    order: { type: "integer" },
+                    course_id: { type: "string", description: "Course documentId" }
+                  }
+                }
+              }
+            },
+            QuizRequest: {
+              type: "object",
+              properties: {
+                data: {
+                  type: "object",
+                  properties: {
+                    title: { type: "string" },
+                    description: { type: "string" },
+                    course_id: { type: "string", description: "Course documentId" }
+                  }
+                }
+              }
+            },
+            QuestionRequest: {
+              type: "object",
+              properties: {
+                data: {
+                  type: "object",
+                  properties: {
+                    question: { type: "string" },
+                    order: { type: "integer" },
+                    quiz_id: { type: "string", description: "Quiz documentId" }
+                  }
+                }
+              }
+            },
+            OptionRequest: {
+              type: "object",
+              properties: {
+                data: {
+                  type: "object",
+                  properties: {
+                    option_text: { type: "string" },
+                    is_correct: { type: "boolean" },
+                    question_id: { type: "string", description: "Question documentId" }
+                  }
+                }
+              }
+            },
+            EnrollmentRequest: {
+              type: "object",
+              properties: {
+                data: {
+                  type: "object",
+                  properties: {
+                    course_id: { type: "string", description: "Course documentId" }
+                  }
+                }
+              }
+            },
+            LessonProgressRequest: {
+              type: "object",
+              properties: {
+                data: {
+                  type: "object",
+                  properties: {
+                    completed: { type: "boolean" },
+                    course_id: { type: "string", description: "Course documentId" },
+                    lesson_id: { type: "string", description: "Lesson documentId" }
+                  }
+                }
+              }
+            },
+            QuizResultRequest: {
+              type: "object",
+              properties: {
+                data: {
+                  type: "object",
+                  properties: {
+                    attempt_no: { type: "integer" },
+                    score: { type: "integer" },
+                    total_questions: { type: "integer" },
+                    percentage: { type: "number", format: "float" },
+                    quiz_id: { type: "string", description: "Quiz documentId" }
+                  }
+                }
+              }
+            },
+            QuizAnswerRequest: {
+              type: "object",
+              properties: {
+                data: {
+                  type: "object",
+                  properties: {
+                    is_correct: { type: "boolean" },
+                    quiz_result_id: { type: "string", description: "Quiz Result documentId" },
+                    question_id: { type: "string", description: "Question documentId" },
+                    selected_option_id: { type: "string", description: "Option documentId" }
+                  }
+                }
+              }
+            },
+            BlogPostRequest: {
+              type: "object",
+              properties: {
+                data: {
+                  type: "object",
+                  properties: {
+                    title: { type: "string" },
+                    body: { type: "string" },
+                    cover_image_url: { type: "string" },
+                    blog_status: { type: "string", enum: ["draft", "published"] }
+                  }
+                }
+              }
+            }
+          }
         }
       }, {
         pluginOrigin: "users-permissions"
@@ -130,9 +269,7 @@ export default {
   },
 
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
-    // Role creation has been moved to manual setup via Admin Panel
-
-    // 2. register user lifecycle hook
+    // register user hook
     strapi.db.lifecycles.subscribe({
       models: ['plugin::users-permissions.user'],
 
@@ -147,7 +284,7 @@ export default {
             });
 
             if (role) {
-              // In database lifecycle, try assigning the role ID (integer) or documentId
+              // assign role id
               data.role = role.id; 
 
             }
