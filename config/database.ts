@@ -11,10 +11,7 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Database 
     );
   }
 
-  const connections: Record<
-    Core.Config.Database.ClientKind,
-    Core.Config.Database['connection']
-  > = {
+  const connections: any = {
     mysql: {
       client: 'mysql',
       connection: {
