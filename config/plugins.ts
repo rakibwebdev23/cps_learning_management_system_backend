@@ -34,6 +34,14 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
       },
     },
   },
+  documentation: {
+    config: {
+      servers: [
+        { url: 'https://cps-lms.up.railway.app/api', description: 'Production server' },
+        { url: 'http://localhost:1337/api', description: 'Local server' }
+      ]
+    }
+  },
   upload: {
     config: {
       security: {
