@@ -1,4 +1,10 @@
 {
+  "x-strapi-config": {
+    "plugins": [
+      "upload",
+      "users-permissions"
+    ]
+  },
   "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
@@ -14,18 +20,16 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-08-28T19:49:53.133Z"
-  },
-  "x-strapi-config": {
-    "plugins": [
-      "upload",
-      "users-permissions"
-    ]
+    "x-generation-date": "2026-08-29T10:28:30.529Z"
   },
   "servers": [
     {
+      "url": "https://cps-lms.up.railway.app/api",
+      "description": "Production server"
+    },
+    {
       "url": "http://localhost:1337/api",
-      "description": "Development server"
+      "description": "Local server"
     }
   ],
   "externalDocs": {
