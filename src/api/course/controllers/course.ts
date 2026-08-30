@@ -5,19 +5,33 @@ export default factories.createCoreController('api::course.course', ({ strapi })
     const user = ctx.state.user;
     
     if (user) {
-      const userRole = user.user_role?.toLowerCase();
+      const userId = user.documentId || user.id;
+
+      let fullUser = null;
+      if (user.documentId) {
+        fullUser = await strapi.documents('plugin::users-permissions.user').findOne({
+          documentId: user.documentId,
+          populate: ['role'],
+        });
+      } else if (user.id) {
+        fullUser = await strapi.db.query('plugin::users-permissions.user').findOne({
+          where: { id: user.id },
+          populate: ['role'],
+        });
+      }
+
+      const roleType = (fullUser?.role?.type || fullUser?.role?.name || user.user_role || '').toLowerCase();
       
-      // assign user by role
-      if (userRole === 'instructor') {
-        ctx.request.body.data = {
-          ...ctx.request.body.data,
-          instructor: user.documentId || user.id,
-        };
-      } else if (userRole === 'content_manager' || userRole === 'admin') {
-        ctx.request.body.data = {
-          ...ctx.request.body.data,
-          content_manager: user.documentId || user.id,
-        };
+      const bodyData = ctx.request.body?.data || {};
+
+      // Automatically set instructor to logged-in user when creating course
+      ctx.request.body.data = {
+        ...bodyData,
+        instructor: bodyData.instructor || userId,
+      };
+
+      if (roleType === 'content_manager' || roleType === 'admin') {
+        ctx.request.body.data.content_manager = bodyData.content_manager || userId;
       }
     }
 
@@ -25,28 +39,40 @@ export default factories.createCoreController('api::course.course', ({ strapi })
   },
 
   async find(ctx) {
-    ctx.query = {
-      ...ctx.query,
-      populate: {
-        ...(ctx.query.populate as any),
-        instructor: {
-          fields: ['username'],
-        },
-      },
+    const defaultInstructorPopulate = {
+      fields: ['username', 'email', 'avatar'],
     };
+
+    if (!ctx.query.populate) {
+      ctx.query.populate = {
+        instructor: defaultInstructorPopulate,
+      };
+    } else if (typeof ctx.query.populate === 'object' && !Array.isArray(ctx.query.populate)) {
+      ctx.query.populate = {
+        ...ctx.query.populate,
+        instructor: (ctx.query.populate as any).instructor || defaultInstructorPopulate,
+      };
+    }
+
     return await super.find(ctx);
   },
   
   async findOne(ctx) {
-    ctx.query = {
-      ...ctx.query,
-      populate: {
-        ...(ctx.query.populate as any),
-        instructor: {
-          fields: ['username'],
-        },
-      },
+    const defaultInstructorPopulate = {
+      fields: ['username', 'email', 'avatar'],
     };
+
+    if (!ctx.query.populate) {
+      ctx.query.populate = {
+        instructor: defaultInstructorPopulate,
+      };
+    } else if (typeof ctx.query.populate === 'object' && !Array.isArray(ctx.query.populate)) {
+      ctx.query.populate = {
+        ...ctx.query.populate,
+        instructor: (ctx.query.populate as any).instructor || defaultInstructorPopulate,
+      };
+    }
+
     return await super.findOne(ctx);
   }
 }));

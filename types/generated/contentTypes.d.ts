@@ -506,7 +506,7 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
       'api::enrollment.enrollment'
     >;
     instructor: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'plugin::users-permissions.user'
     >;
     lesson_progresses: Schema.Attribute.Relation<
