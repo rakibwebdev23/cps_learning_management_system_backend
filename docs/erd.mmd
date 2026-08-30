@@ -1,0 +1,140 @@
+erDiagram
+    USER {
+        UUID id PK
+        string username
+        string email UK
+        user_role role
+        string avatar NULL
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    BLOG_POST {
+        UUID id PK
+        string title
+        richtext body
+        string cover_image_url NULL
+        blog_status status
+        UUID author_id FK
+        datetime publishedAt NULL
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    COURSE {
+        UUID id PK
+        string title
+        text description NULL
+        string thumbnail_url NULL
+        UUID instructor_id FK
+        UUID content_manager_id FK
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    ENROLLMENT {
+        UUID id PK
+        UUID student_id FK
+        UUID course_id FK
+        enrollment_status status
+        datetime enrolledAt
+        datetime completedAt NULL
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    LESSON {
+        UUID id PK
+        string title
+        richtext content NULL
+        string video_url NULL
+        integer order
+        UUID course_id FK
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    LESSON_PROGRESS {
+        UUID id PK
+        UUID student_id FK
+        UUID course_id FK
+        UUID lesson_id FK
+        boolean completed
+        datetime completedAt NULL
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    QUIZ {
+        UUID id PK
+        string title
+        text description NULL
+        UUID course_id FK
+        UUID created_by FK
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    QUIZ_RESULT {
+        UUID id PK
+        UUID student_id FK
+        UUID quiz_id FK
+        integer attempt_no
+        integer score
+        integer total_questions
+        decimal percentage
+        datetime submittedAt
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    QUESTION {
+        UUID id PK
+        text question
+        integer order
+        UUID quiz_id FK
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    OPTION {
+        UUID id PK
+        text option_text
+        boolean is_correct
+        UUID question_id FK
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    QUIZ_ANSWER {
+        UUID id PK
+        UUID quiz_result_id FK
+        UUID question_id FK
+        UUID selected_option_id FK
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    USER ||--o{ BLOG_POST : "author"
+    USER ||--o{ COURSE : "instructor"
+    USER ||--o{ COURSE : "content_manager"
+    USER ||--o{ QUIZ : "created_by"
+    USER ||--o{ ENROLLMENT : "student"
+    USER ||--o{ LESSON_PROGRESS : "student"
+    USER ||--o{ QUIZ_RESULT : "student"
+
+    COURSE ||--o{ LESSON : "lessons"
+    COURSE ||--o{ QUIZ : "quizzes"
+    COURSE ||--o{ ENROLLMENT : "course"
+    COURSE ||--o{ LESSON_PROGRESS : "course"
+
+    LESSON ||--o{ LESSON_PROGRESS : "lesson"
+
+    QUIZ ||--o{ QUESTION : "questions"
+    QUIZ ||--o{ QUIZ_RESULT : "attempts"
+
+    QUESTION ||--o{ OPTION : "options"
+    QUESTION ||--o{ QUIZ_ANSWER : "question"
+
+    QUIZ_RESULT ||--o{ QUIZ_ANSWER : "answers"
+    OPTION ||--o{ QUIZ_ANSWER : "selected_option"
