@@ -1,5 +1,9 @@
 # CPS Learning Management System (LMS) Backend
 
+> 🌐 **Live Website**: [https://cps-lms-gules.vercel.app/](https://cps-lms-gules.vercel.app/)  
+> 📚 **Live API Documentation (Swagger)**: [https://cps-lms.up.railway.app/documentation](https://cps-lms.up.railway.app/documentation)  
+> ⚙️ **Backend Service (Railway)**: [https://cps-lms.up.railway.app](https://cps-lms.up.railway.app)
+
 This is the backend for the CPS Learning Management System, built on **Strapi v5** (Headless CMS) using **TypeScript** and **PostgreSQL**. The backend is architected to be secure, dynamic, and fully aligned with the project's customized Entity-Relationship Diagram (ERD).
 
 ---
