@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "courses",
+  "info": {
+    "singularName": "course",
+    "pluralName": "courses",
+    "displayName": "Course",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "content_manager": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "lessons": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lesson.lesson",
+      "mappedBy": "course"
+    },
+    "enrollments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::enrollment.enrollment",
+      "mappedBy": "course"
+    },
+    "lesson_progresses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lesson-progress.lesson-progress",
+      "mappedBy": "course"
+    },
+    "quizzes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quiz.quiz",
+      "mappedBy": "course_id"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "instructor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

@@ -27,7 +27,22 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
     config: {
       jwtManagement: 'refresh',
       sessions: {
-        httpOnly: true,
+        httpOnly: false,
+      },
+      register: {
+        allowedFields: ['user_role', 'avatar'],
+      },
+    },
+  },
+  documentation: {
+    config: {
+      'x-strapi-config': {
+        mutateDocumentation: (draft: any) => {
+          draft.servers = [
+            { url: 'https://cps-lms.up.railway.app/api', description: 'Production server' },
+            { url: 'http://localhost:1337/api', description: 'Local server' }
+          ];
+        },
       },
     },
   },
