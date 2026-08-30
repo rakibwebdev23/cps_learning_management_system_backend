@@ -79,6 +79,21 @@
     "avatar": {
       "type": "string"
     },
+    "phone": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "text"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "active",
+        "inactive",
+        "suspended"
+      ],
+      "default": "active"
+    },
     "blog_posts": {
       "type": "relation",
       "relation": "oneToMany",

@@ -16,6 +16,10 @@
       "type": "text",
       "required": true
     },
+    "marks": {
+      "type": "integer",
+      "default": 10
+    },
     "order": {
       "type": "integer",
       "required": true

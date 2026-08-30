@@ -19,6 +19,22 @@
     "description": {
       "type": "text"
     },
+    "passingScore": {
+      "type": "integer",
+      "default": 70
+    },
+    "timeLimitMinutes": {
+      "type": "integer",
+      "default": 30
+    },
+    "totalMarks": {
+      "type": "integer",
+      "default": 100
+    },
+    "attemptLimit": {
+      "type": "integer",
+      "default": 3
+    },
     "course_id": {
       "type": "relation",
       "relation": "manyToOne",

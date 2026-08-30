@@ -16,11 +16,69 @@
       "type": "string",
       "required": true
     },
+    "slug": {
+      "type": "string"
+    },
     "description": {
+      "type": "text"
+    },
+    "shortDescription": {
       "type": "text"
     },
     "thumbnail_url": {
       "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ],
+      "default": "beginner"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "draft",
+        "published",
+        "archived"
+      ],
+      "default": "published"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "discountPrice": {
+      "type": "decimal"
+    },
+    "rating": {
+      "type": "decimal",
+      "default": 4.5
+    },
+    "reviewCount": {
+      "type": "integer",
+      "default": 0
+    },
+    "studentCount": {
+      "type": "integer",
+      "default": 0
+    },
+    "durationMinutes": {
+      "type": "integer",
+      "default": 0
+    },
+    "tags": {
+      "type": "json"
+    },
+    "requirements": {
+      "type": "json"
+    },
+    "learningOutcomes": {
+      "type": "json"
     },
     "content_manager": {
       "type": "relation",
@@ -50,9 +108,6 @@
       "relation": "oneToMany",
       "target": "api::quiz.quiz",
       "mappedBy": "course_id"
-    },
-    "price": {
-      "type": "decimal"
     },
     "instructor": {
       "type": "relation",

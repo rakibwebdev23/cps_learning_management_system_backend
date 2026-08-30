@@ -16,12 +16,28 @@
       "type": "string",
       "required": true
     },
+    "slug": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "text"
+    },
     "body": {
       "type": "richtext",
       "required": true
     },
     "cover_image_url": {
       "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "json"
+    },
+    "viewCount": {
+      "type": "integer",
+      "default": 0
     },
     "blog_status": {
       "type": "enumeration",
