@@ -15,6 +15,7 @@ const config: Core.Config.Middlewares = [
         'http://localhost:3001',
         'http://localhost:1337',
         'https://cps-lms.up.railway.app',
+        'https://cps-lms-gules.vercel.app',
       ],
 
       methods: [
@@ -47,7 +48,6 @@ const config: Core.Config.Middlewares = [
 ];
 
 export default config;
-
 
 
 
